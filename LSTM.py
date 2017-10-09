@@ -38,24 +38,25 @@ else:
         ]
 
 
+print("size , duration, gflops, GFLOPS")
 for idx in range(len(sizes)):
   size = sizes[idx]
   N = size[0]
   T = size[1]
   D = size[2]
   H = size[3]
-  
+
   rnn = nn.LSTM(D,H,1)
   input = Variable(torch.randn(N, T, D))
   h0 = Variable(torch.randn(1, T, H))
   c0 = Variable(torch.randn(1, T, H))
   output, hn = rnn(input, (h0, c0))
-  
+
   start = time.time()
   for j in range(count):
     output, hn = rnn(input, (h0, c0))
   dura = (time.time() - start)/count
   gflops = T*4*(N*H*D*2 + N*H*H*2)/1e9
   GFLOPS = gflops/dura
-  print("size = %s, duration = %.4f, gflops = %.4f, GFLOPS = %.4f" %(size,dura,gflops,GFLOPS))
+  print("%s, %.4f, %.4f, %.4f" %(size,dura,gflops,GFLOPS))
 
