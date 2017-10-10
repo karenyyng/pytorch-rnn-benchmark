@@ -3,6 +3,7 @@
 t=$1
 lscpu
 which python
+conda list
 export KMP_AFFINITY=compact,1,0,granularity=fine
 
 if [ $t == 'bdw' ]; then
