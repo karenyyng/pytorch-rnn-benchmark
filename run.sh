@@ -27,19 +27,19 @@ if [ $t == 'gpu' ]; then
 fi
 if [ $t == 'bdw-profile' ]; then
   export OMP_NUM_THREADS=44
-  python -m cProfile -o bdw_$(date '+%Y-%m-%d_%H%M%S').cprof LSTM.py $2 cuda $3
+  python -m cProfile -o bdw_$(date '+%Y-%m-%d_%H%M%S').cprof LSTM.py $2 $3
 fi
 if [ $t == 'knl-profile' ]; then
   export OMP_NUM_THREADS=68
-  python -m cProfile -o knl_$(date '+%Y-%m-%d_%H%M%S').cprof LSTM.py $2 cuda $3
+  python -m cProfile -o knl_$(date '+%Y-%m-%d_%H%M%S').cprof LSTM.py $2 $3
 fi
 if [ $t == 'knl-vtune-profile' ]; then
   export OMP_NUM_THREADS=68
   ARK=knl
-  amplxe-cl -collect hotspot -r r@@@{at}_${ARK} -- python LSTM.py $2 cuda $3
+  amplxe-cl -collect hotspot -r r@@@{at}_${ARK} -- python LSTM.py $2 $3
 fi
 if [ $t == 'hsw-vtune-profile' ]; then
   export OMP_NUM_THREADS=16
   ARK=hsw
-  amplxe-cl -collect hotspot -r r@@@{at}_${ARK} -- python LSTM.py $2 cuda $3
+  amplxe-cl -collect hotspot -r r@@@{at}_${ARK} -- python LSTM.py $2 $3
 fi
