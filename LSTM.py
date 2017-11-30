@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
+# import torch.nn.functional as F
 from torch.autograd import Variable
 import time
 
@@ -37,7 +37,6 @@ else:
              [64, 50, 500, 500]
              ]
 
-
 print("#size, duration, gflops, GFLOPS")
 for idx in range(len(sizes)):
     size = sizes[idx]
@@ -58,4 +57,5 @@ for idx in range(len(sizes)):
     dura = (time.time() - start) / count
     gflops = T * 4 * (N * H * D * 2 + N * H * H * 2) / 1e9
     GFLOPS = gflops / dura
-    print("%s, %.4f, %.4f, %.4f" % (size, dura, gflops, GFLOPS))
+    print("''" + "%s" % (size) + "'" +
+          ", %.4f, %.4f, %.4f" % (dura, gflops, GFLOPS))
